@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	firebase "firebase.google.com/go/v4"
 	"github.com/ThreeDotsLabs/wild-workouts-go-ddd-example/internal/common/auth"
@@ -31,7 +32,12 @@ func RunHTTPServerOnAddr(addr string, createHandler func(router chi.Router) http
 
 	logrus.Info("Starting HTTP server")
 
-	err := http.ListenAndServe(addr, rootRouter)
+	server := &http.Server{
+		Addr:              addr,
+		ReadHeaderTimeout: 3 * time.Second,
+		Handler:           rootRouter,
+	}
+	err := server.ListenAndServe()
 	if err != nil {
 		logrus.WithError(err).Panic("Unable to start HTTP server")
 	}
@@ -75,7 +81,7 @@ func addAuthMiddleware(router *chi.Mux) {
 		logrus.WithError(err).Fatal("Unable to create firebase Auth client")
 	}
 
-	router.Use(auth.FirebaseHttpMiddleware{authClient}.Middleware)
+	router.Use(auth.FirebaseHttpMiddleware{AuthClient: authClient}.Middleware)
 }
 
 func addCorsMiddleware(router *chi.Mux) {

@@ -62,7 +62,7 @@ func (r TrainingsFirestoreRepository) GetTraining(
 	firestoreTraining, err := r.trainingsCollection().Doc(trainingUUID).Get(ctx)
 
 	if status.Code(err) == codes.NotFound {
-		return nil, training.NotFoundError{trainingUUID}
+		return nil, training.NotFoundError{TrainingUUID: trainingUUID}
 	}
 	if err != nil {
 		return nil, errors.Wrap(err, "unable to get actual docs")

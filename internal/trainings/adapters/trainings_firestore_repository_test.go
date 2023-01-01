@@ -106,7 +106,7 @@ func TestTrainingsFirestoreRepository_GetTraining_not_exists(t *testing.T) {
 		training.MustNewUser(uuid.New().String(), training.Attendee),
 	)
 	assert.Nil(t, tr)
-	assert.EqualError(t, err, training.NotFoundError{trainingUUID}.Error())
+	assert.EqualError(t, err, training.NotFoundError{TrainingUUID: trainingUUID}.Error())
 }
 
 func TestTrainingsFirestoreRepository_get_and_update_another_users_training(t *testing.T) {
