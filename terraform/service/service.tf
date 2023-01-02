@@ -13,6 +13,7 @@ locals {
 
 data "google_container_registry_image" "image" {
   name = var.name
+  region = "eu"
 }
 
 resource "google_cloud_run_service" "service" {
