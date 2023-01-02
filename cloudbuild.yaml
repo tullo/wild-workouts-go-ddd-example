@@ -104,6 +104,23 @@ steps:
   args: [install]
   dir: web
   waitFor: ['-']
+
+# - id: openapi-js-trainer
+#   name: openapitools/openapi-generator-cli:v4.3.0
+#   args: ['generate','-i', '/workspace/api/openapi/trainer.yml', '-g', 'javascript', '-o', '/workspace/web/src/repositories/clients/trainer', '--ignore-file-override', '/workspace/web/src/repositories']
+#   env:
+#   - JAVA_OPTS=-Dlog.level=error
+# - id: openapi-js-trainings
+#   name: openapitools/openapi-generator-cli:v4.3.0
+#   args: ['generate','-i', '/workspace/api/openapi/trainings.yml', '-g', 'javascript', '-o', '/workspace/web/src/repositories/clients/trainings', '--ignore-file-override', '/workspace/web/src/repositories']
+#   env:
+#   - JAVA_OPTS=-Dlog.level=error
+# - id: openapi-js-users
+#   name: openapitools/openapi-generator-cli:v4.3.0
+#   args: ['generate','-i', '/workspace/api/openapi/users.yml', '-g', 'javascript', '-o', '/workspace/web/src/repositories/clients/users', '--ignore-file-override', '/workspace/web/src/repositories']
+#   env:
+#   - JAVA_OPTS=-Dlog.level=error
+
 - id: openapi-js
   name: openapitools/openapi-generator-cli:v4.3.0
   entrypoint: "./scripts/openapi-js.sh"
@@ -114,6 +131,7 @@ steps:
   args: [build]
   dir: web
   waitFor: [web-deps, openapi-js]
+# waitFor: [web-deps, openapi-js-trainer, openapi-js-trainings, openapi-js-users]
 - name: eu.gcr.io/$PROJECT_ID/firebase
   args: ['deploy', '--project=$PROJECT_ID']
   dir: web
