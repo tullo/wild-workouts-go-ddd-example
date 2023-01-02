@@ -4,6 +4,7 @@ locals {
 }
 
 resource "google_project_iam_member" "firebase_admin" {
+  project = var.project
   role   = "roles/firebase.admin"
   member = local.cloud_build_member
 
@@ -11,6 +12,7 @@ resource "google_project_iam_member" "firebase_admin" {
 }
 
 resource "google_project_iam_member" "api_keys_admin" {
+  project = var.project
   role   = "roles/serviceusage.apiKeysViewer"
   member = local.cloud_build_member
 
@@ -18,6 +20,7 @@ resource "google_project_iam_member" "api_keys_admin" {
 }
 
 resource "google_project_iam_member" "cloud_run_admin" {
+  project = var.project
   role   = "roles/run.admin"
   member = local.cloud_build_member
 
