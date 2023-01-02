@@ -28,7 +28,7 @@ func TestCreateTraining(t *testing.T) {
 
 	var trainingsUUIDs []string
 	for _, t := range trainingsResponse.Trainings {
-		trainingsUUIDs = append(trainingsUUIDs, t.Uuid)
+		trainingsUUIDs = append(trainingsUUIDs, t.Uuid.String())
 	}
 
 	require.Contains(t, trainingsUUIDs, trainingUUID)
@@ -43,13 +43,13 @@ func TestCancelTraining(t *testing.T) {
 	hour := tests.RelativeDate(10, 13)
 	trainingUUID := client.CreateTraining(t, "some note", hour)
 
-	client.CancelTraining(t, trainingUUID, http.StatusOK)
+	client.CancelTraining(t, uuid.MustParse(trainingUUID), http.StatusOK)
 
 	trainingsResponse := client.GetTrainings(t)
 
 	var trainingsUUIDs []string
 	for _, t := range trainingsResponse.Trainings {
-		trainingsUUIDs = append(trainingsUUIDs, t.Uuid)
+		trainingsUUIDs = append(trainingsUUIDs, t.Uuid.String())
 	}
 
 	require.NotContains(t, trainingsUUIDs, trainingUUID)

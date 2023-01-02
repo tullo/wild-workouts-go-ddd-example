@@ -83,7 +83,7 @@ func (h HttpServer) CreateTraining(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-func (h HttpServer) CancelTraining(w http.ResponseWriter, r *http.Request, trainingUUID string) {
+func (h HttpServer) CancelTraining(w http.ResponseWriter, r *http.Request, trainingUUID uuid.UUID) {
 	user, err := newDomainUserFromAuthUser(r.Context())
 	if err != nil {
 		httperr.RespondWithSlugError(err, w, r)
@@ -91,7 +91,7 @@ func (h HttpServer) CancelTraining(w http.ResponseWriter, r *http.Request, train
 	}
 
 	err = h.app.Commands.CancelTraining.Handle(r.Context(), command.CancelTraining{
-		TrainingUUID: trainingUUID,
+		TrainingUUID: trainingUUID.String(),
 		User:         user,
 	})
 	if err != nil {
@@ -100,7 +100,7 @@ func (h HttpServer) CancelTraining(w http.ResponseWriter, r *http.Request, train
 	}
 }
 
-func (h HttpServer) RescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID string) {
+func (h HttpServer) RescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID uuid.UUID) {
 	rescheduleTraining := PostTraining{}
 	if err := render.Decode(r, &rescheduleTraining); err != nil {
 		httperr.BadRequest("invalid-request", err, w, r)
@@ -115,7 +115,7 @@ func (h HttpServer) RescheduleTraining(w http.ResponseWriter, r *http.Request, t
 
 	err = h.app.Commands.RescheduleTraining.Handle(r.Context(), command.RescheduleTraining{
 		User:         user,
-		TrainingUUID: trainingUUID,
+		TrainingUUID: trainingUUID.String(),
 		NewTime:      rescheduleTraining.Time,
 		NewNotes:     rescheduleTraining.Notes,
 	})
@@ -125,7 +125,7 @@ func (h HttpServer) RescheduleTraining(w http.ResponseWriter, r *http.Request, t
 	}
 }
 
-func (h HttpServer) RequestRescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID string) {
+func (h HttpServer) RequestRescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID uuid.UUID) {
 	rescheduleTraining := PostTraining{}
 	if err := render.Decode(r, &rescheduleTraining); err != nil {
 		httperr.BadRequest("invalid-request", err, w, r)
@@ -140,7 +140,7 @@ func (h HttpServer) RequestRescheduleTraining(w http.ResponseWriter, r *http.Req
 
 	err = h.app.Commands.RequestTrainingReschedule.Handle(r.Context(), command.RequestTrainingReschedule{
 		User:         user,
-		TrainingUUID: trainingUUID,
+		TrainingUUID: trainingUUID.String(),
 		NewTime:      rescheduleTraining.Time,
 		NewNotes:     rescheduleTraining.Notes,
 	})
@@ -150,7 +150,7 @@ func (h HttpServer) RequestRescheduleTraining(w http.ResponseWriter, r *http.Req
 	}
 }
 
-func (h HttpServer) ApproveRescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID string) {
+func (h HttpServer) ApproveRescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID uuid.UUID) {
 	user, err := newDomainUserFromAuthUser(r.Context())
 	if err != nil {
 		httperr.RespondWithSlugError(err, w, r)
@@ -159,7 +159,7 @@ func (h HttpServer) ApproveRescheduleTraining(w http.ResponseWriter, r *http.Req
 
 	err = h.app.Commands.ApproveTrainingReschedule.Handle(r.Context(), command.ApproveTrainingReschedule{
 		User:         user,
-		TrainingUUID: trainingUUID,
+		TrainingUUID: trainingUUID.String(),
 	})
 	if err != nil {
 		httperr.RespondWithSlugError(err, w, r)
@@ -167,7 +167,7 @@ func (h HttpServer) ApproveRescheduleTraining(w http.ResponseWriter, r *http.Req
 	}
 }
 
-func (h HttpServer) RejectRescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID string) {
+func (h HttpServer) RejectRescheduleTraining(w http.ResponseWriter, r *http.Request, trainingUUID uuid.UUID) {
 	user, err := newDomainUserFromAuthUser(r.Context())
 	if err != nil {
 		httperr.RespondWithSlugError(err, w, r)
@@ -176,7 +176,7 @@ func (h HttpServer) RejectRescheduleTraining(w http.ResponseWriter, r *http.Requ
 
 	err = h.app.Commands.RejectTrainingReschedule.Handle(r.Context(), command.RejectTrainingReschedule{
 		User:         user,
-		TrainingUUID: trainingUUID,
+		TrainingUUID: trainingUUID.String(),
 	})
 	if err != nil {
 		httperr.RespondWithSlugError(err, w, r)
@@ -195,8 +195,8 @@ func appTrainingsToResponse(appTrainings []query.Training) []Training {
 			ProposedTime:       tm.ProposedTime,
 			Time:               tm.Time,
 			User:               tm.User,
-			UserUuid:           tm.UserUUID,
-			Uuid:               tm.UUID,
+			UserUuid:           uuid.MustParse(tm.UserUUID),
+			Uuid:               uuid.MustParse(tm.UUID),
 		}
 
 		trainings = append(trainings, t)

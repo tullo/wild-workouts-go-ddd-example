@@ -12,6 +12,7 @@ import (
 	"github.com/ThreeDotsLabs/wild-workouts-go-ddd-example/internal/common/client/trainer"
 	"github.com/ThreeDotsLabs/wild-workouts-go-ddd-example/internal/common/client/trainings"
 	"github.com/ThreeDotsLabs/wild-workouts-go-ddd-example/internal/common/client/users"
+	openapi_types "github.com/deepmap/oapi-codegen/pkg/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -130,7 +131,7 @@ func (c TrainingsHTTPClient) GetTrainings(t *testing.T) trainings.Trainings {
 	return *response.JSON200
 }
 
-func (c TrainingsHTTPClient) CancelTraining(t *testing.T, trainingUUID string, expectedStatusCode int) {
+func (c TrainingsHTTPClient) CancelTraining(t *testing.T, trainingUUID openapi_types.UUID, expectedStatusCode int) {
 	response, err := c.client.CancelTraining(context.Background(), trainingUUID)
 	require.NoError(t, err)
 	require.NoError(t, response.Body.Close())
