@@ -1,4 +1,4 @@
-base_image:=gcr.io/cloudrun/hello
+base_image:=eu.gcr.io/cloudrun/hello
 load_envs:=. ./.env
 
 all: check init apply push_repo done
@@ -66,7 +66,7 @@ docker_images:
 	docker pull "${base_image}"
 
 	${load_envs} && for service in trainer trainings users; do \
-		tag="gcr.io/$$TF_VAR_project/$$service"; \
+		tag="eu.gcr.io/$$TF_VAR_project/$$service"; \
 		docker tag "${base_image}" "$$tag"; \
 		docker push "$$tag"; \
 	done

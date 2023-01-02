@@ -1,19 +1,19 @@
 version: "3"
 services:
   trainer-http:
-    image: "gcr.io/${PROJECT_ID}/trainer"
+    image: "eu.gcr.io/${PROJECT_ID}/trainer"
 
   trainer-grpc:
-    image: "gcr.io/${PROJECT_ID}/trainer"
+    image: "eu.gcr.io/${PROJECT_ID}/trainer"
 
   trainings-http:
-    image: "gcr.io/${PROJECT_ID}/trainings"
+    image: "eu.gcr.io/${PROJECT_ID}/trainings"
 
   users-http:
-    image: "gcr.io/${PROJECT_ID}/users"
+    image: "eu.gcr.io/${PROJECT_ID}/users"
 
   users-grpc:
-    image: "gcr.io/${PROJECT_ID}/users"
+    image: "eu.gcr.io/${PROJECT_ID}/users"
 networks:
   default:
     external:
