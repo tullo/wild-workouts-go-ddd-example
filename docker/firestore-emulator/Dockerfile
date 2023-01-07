@@ -1,4 +1,4 @@
-FROM node:16.15.0-alpine3.15
+FROM node:18.12.1-alpine3.17
 
 RUN apk add --no-cache openjdk8-jre
 RUN apk add --no-cache bash
