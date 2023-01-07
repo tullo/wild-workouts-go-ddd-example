@@ -67,7 +67,7 @@
 </template>
 
 <script>
-    import AppLayout from '../layouts/App.vue'
+    import AppLayout from '../layouts/WorkoutsApp.vue'
     import {getTrainingBalance} from "../repositories/user";
     import {getAvailableDates, rescheduleTraining, scheduleTraining} from "../repositories/trainings";
     import {formatDate, formatHour} from "../date";

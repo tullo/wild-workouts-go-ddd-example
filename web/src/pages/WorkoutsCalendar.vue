@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import AppLayout from '../layouts/App.vue'
+    import AppLayout from '../layouts/WorkoutsApp.vue'
     import FullCalendar from '@fullcalendar/vue'
     import interactionPlugin from '@fullcalendar/interaction'
     import dayGridPlugin from '@fullcalendar/daygrid'
@@ -98,10 +98,9 @@
 </script>
 
 <style lang='scss'>
-    @import '~@fullcalendar/core/main.css';
-    @import '~@fullcalendar/daygrid/main.css';
-    @import '~@fullcalendar/timegrid/main.css';
-    @import '~@fullcalendar/list/main.css';
+    @import '@fullcalendar/daygrid/main.css';
+    @import '@fullcalendar/timegrid/main.css';
+    @import '@fullcalendar/list/main.css';
 
     .fc-unthemed td.fc-today {
         background: #ffffff;

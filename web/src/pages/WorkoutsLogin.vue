@@ -33,13 +33,13 @@
 </template>
 
 <script>
-    import LoginLayout from '../layouts/Login'
+    import LoginLayout from '../layouts/WorkoutsLogin'
     import {getTestUsers, loginUser} from '../repositories/user'
     import {Auth} from "../repositories/auth";
 
 
     export default {
-        name: "Login",
+        name: "WorkoutsLogin",
         components: {
             LoginLayout,
         },

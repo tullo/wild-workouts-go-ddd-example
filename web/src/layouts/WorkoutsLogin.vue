@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: 'Login',
+        name: 'WorkoutsLogin',
         components: {},
         beforeCreate: function() {
             document.body.className = 'login';

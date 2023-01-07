@@ -74,7 +74,7 @@
 </template>
 
 <script>
-    import AppLayout from '../layouts/App.vue'
+    import AppLayout from '../layouts/WorkoutsApp.vue'
 
     import {approveReschedule, cancelTraining, getCalendar, rejectReschedule} from '../repositories/trainings'
     import {getUserRole, Trainer} from "../repositories/user";

@@ -10,9 +10,9 @@ import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
 import TrainingsList from './pages/TrainingsList'
-import Calendar from './pages/Calendar'
+import Calendar from './pages/WorkoutsCalendar'
 import ScheduleTraining from './pages/ScheduleTraining'
-import Login from './pages/Login'
+import Login from './pages/WorkoutsLogin'
 import SetSchedule from './pages/SetSchedule'
 import {loadFirebaseConfig} from "./firebase";
 import {Auth, setApiClientsAuth} from "./repositories/auth";

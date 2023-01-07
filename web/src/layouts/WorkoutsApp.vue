@@ -14,7 +14,7 @@
     import {Auth} from "../repositories/auth";
 
     export default {
-        name: 'Main',
+        name: 'WorkoutsApp',
         components: {
             WebFooter,
             WebMenu,

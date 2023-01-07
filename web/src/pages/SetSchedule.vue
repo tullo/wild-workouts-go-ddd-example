@@ -51,7 +51,7 @@
 </template>
 
 <script>
-    import AppLayout from '../layouts/App.vue'
+    import AppLayout from '../layouts/WorkoutsApp.vue'
     import {getPeriods, getSchedule, setHourAvailability} from "../repositories/trainings";
     import {formatDate, formatDateTime, formatHour} from "../date";
 

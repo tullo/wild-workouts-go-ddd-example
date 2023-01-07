@@ -11,4 +11,11 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        fallback: { 
+            "util": false,
+            "stream": false,
+            "crypto": require.resolve("crypto-browserify")
+        }
+    }
 }
